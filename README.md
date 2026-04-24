@@ -1,4 +1,4 @@
-# StratoTwin — Complete Digital Twin Agent Architecture
+# StratoTwin — Complete Digital Twin Agent Architectur
 
 An enterprise-scale digital twin platform monitoring 6 IT layers across 5 sites with 13 intelligent processes, 6 ML models, and autonomous agent orchestration.
 
