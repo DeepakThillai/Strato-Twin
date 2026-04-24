@@ -1,0 +1,8 @@
+{
+  "NET-ISO-V1": "D:\\technoverse\\ml-sidecar\\models\\NET-ISO-V1.joblib",
+  "NET-LSTM-V1": "D:\\technoverse\\ml-sidecar\\models\\NET-LSTM-V1.joblib",
+  "COMPUTE-SYSCALL-AE-V1": "D:\\technoverse\\ml-sidecar\\models\\COMPUTE-SYSCALL-AE-V1.joblib",
+  "APP-ABUSE-ISO-V1": "D:\\technoverse\\ml-sidecar\\models\\APP-ABUSE-ISO-V1.joblib",
+  "DATA-ACCESS-VOL-V1": "zscore-runtime",
+  "WRK-ATTRITION-RF-V1": "D:\\technoverse\\ml-sidecar\\models\\WRK-ATTRITION-RF-V1.joblib"
+}

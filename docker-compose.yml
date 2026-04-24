@@ -1,0 +1,104 @@
+services:
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "2181"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - stratotwin
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_CREATE_TOPICS: >
+        network.node.state:1:1,
+        compute.node.state:1:1,
+        application.service.state:1:1,
+        data.pipeline.state:1:1,
+        workforce.state:1:1,
+        facilities.sensor.state:1:1,
+        stratotwin.alerts:1:1,
+        stratotwin.alerts.retry:1:1,
+        stratotwin.alerts.dlq:1:1
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+    networks:
+      - stratotwin
+
+  mongodb:
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: stratotwin
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - stratotwin
+
+  postgresql:
+    image: postgres:16
+    ports:
+      - "55432:5432"
+    environment:
+      POSTGRES_DB: stratotwin
+      POSTGRES_USER: stratotwin
+      POSTGRES_PASSWORD: stratotwin_pass
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U stratotwin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - stratotwin
+
+  redis:
+    image: redis:7.2
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - stratotwin
+
+networks:
+  stratotwin:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  pg_data:

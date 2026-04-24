@@ -1,0 +1,123 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 280px 1fr 320px;
+  gap: 12px;
+  height: 100vh;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.panel {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  padding: 12px;
+  overflow: auto;
+}
+
+.title {
+  margin: 0 0 8px 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.metric {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  margin: 6px 0;
+  font-size: 13px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+.b-critical {
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
+.b-high {
+  background: #78350f;
+  color: #fed7aa;
+}
+
+.b-info {
+  background: #1e3a8a;
+  color: #bfdbfe;
+}
+
+.btn {
+  width: 100%;
+  margin-top: 6px;
+  border: 1px solid #334155;
+  background: #0b1220;
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #131e33;
+}
+
+.chip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.chip {
+  border: 1px solid #334155;
+  background: #0b1220;
+  color: #cbd5e1;
+  border-radius: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.chip:hover {
+  background: #131e33;
+}
+
+.chip-active {
+  border-color: #38bdf8;
+  color: #dbeafe;
+  background: #082f49;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list li {
+  padding: 8px;
+  border-bottom: 1px solid #1f2937;
+  font-size: 12px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+

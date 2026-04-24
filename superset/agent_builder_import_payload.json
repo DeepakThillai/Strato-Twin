@@ -1,0 +1,51 @@
+{
+  "toolset_name": "StratoTwin Toolset",
+  "description": "Tool definitions for Superset Agent Builder integration",
+  "connection": {
+    "base_url": "http://host.docker.internal:8080",
+    "auth_type": "none"
+  },
+  "tools": [
+    {
+      "name": "stratotwin_query",
+      "method": "POST",
+      "path": "/query",
+      "description": "Natural language wrapper for blast radius, topology summary, and alerts",
+      "json_schema": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string",
+            "description": "Example: What's the blast radius if L6-CHN-RACK-01 fails?"
+          }
+        },
+        "required": [
+          "question"
+        ]
+      }
+    },
+    {
+      "name": "stratotwin_blast_radius",
+      "method": "GET",
+      "path": "/blast-radius/{node_id}",
+      "description": "Deterministic blast-radius lookup by node id"
+    },
+    {
+      "name": "stratotwin_topology_graph",
+      "method": "GET",
+      "path": "/topology/graph",
+      "description": "Topology graph (nodes + WAN + dependency edges)"
+    },
+    {
+      "name": "stratotwin_alerts_recent",
+      "method": "GET",
+      "path": "/alerts/recent?limit=20",
+      "description": "Recent non-positive process executions"
+    }
+  ],
+  "sample_queries": [
+    "What's the blast radius if L6-CHN-RACK-01 fails?",
+    "Show me topology summary",
+    "Get the latest 10 alerts"
+  ]
+}
